@@ -40,7 +40,7 @@ class UserVerificationCode(BaseModel):
             user=user,
             code=get_random_digit_code(cls.CODE_LENGTH),
             code_expires_at=timezone.now()
-            + timezone.timedelta(seconds=cls.EXPIRE_TIME),
+                            + timezone.timedelta(seconds=cls.EXPIRE_TIME),
         )
 
     # endregion: class methods
@@ -64,8 +64,8 @@ class UserVerificationCode(BaseModel):
     @property
     def is_verification_token_expired(self) -> bool:
         return (
-            timezone.now() > self.verification_token_expires_at
-            or not self.is_latest
+                timezone.now() > self.verification_token_expires_at
+                or not self.is_latest
         )
 
     # endregion: properties
@@ -77,7 +77,7 @@ class UserVerificationCode(BaseModel):
         """
         self.verification_token = get_random_string(self.TOKEN_LENGTH)
         self.verification_token_expires_at = (
-            timezone.now() + timezone.timedelta(seconds=self.EXPIRE_TIME)
+                timezone.now() + timezone.timedelta(seconds=self.EXPIRE_TIME)
         )
         self.save(
             update_fields=[

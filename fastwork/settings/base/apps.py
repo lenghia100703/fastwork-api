@@ -19,6 +19,6 @@ EXTERNAL_APPS = [
     "ckeditor_uploader",
 ]
 INTERNAL_APPS = [
-    
+    "hr.apps.HrConfig",
 ]
 INSTALLED_APPS = DJANGO_APPS + EXTERNAL_APPS + INTERNAL_APPS

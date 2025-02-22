@@ -35,3 +35,5 @@ ALLOWED_HOSTS = ["*"]
 ROOT_URLCONF = "urls"
 WSGI_APPLICATION = "wsgi.application"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = "hr.User"

@@ -26,7 +26,7 @@ class User(BaseModel, AbstractUser):
         max_length=255,
     )
     USERNAME_FIELD = "username"
-    REQUIRED_FIELDS = ["username"]
+    REQUIRED_FIELDS = ["email"]
 
     def __str__(self):
         if self.get_full_name():
