@@ -25,4 +25,6 @@ class UserSerializer(ModelSerializer):
             "last_name",
             "phone_number",
             "avatar",
+            "role",
+            "email_verified",
         ]

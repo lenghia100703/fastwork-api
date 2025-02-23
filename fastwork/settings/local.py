@@ -15,7 +15,6 @@ INSTALLED_APPS += [
 # Ref: https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
 MIDDLEWARE += [
     "debug_toolbar.middleware.DebugToolbarMiddleware",
-    "corsheaders.middleware.CorsMiddleware"
 ]
 INTERNAL_IPS = ["127.0.0.1"]
 CORS_ALLOW_ALL_ORIGINS = True
