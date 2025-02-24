@@ -11,6 +11,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from libs.validators import PasswordValidator, PhoneNumberValidator
+from tasks import send_successful_signup_email
 
 from ..models import User
 
@@ -78,6 +79,7 @@ class SignUpSerializer(SignUpMixin, serializers.Serializer):
 
     def save(self, **kwargs):
         self.instance = super().save(**kwargs)
+        send_successful_signup_email.delay(self.instance.id)
         tokens = self.get_tokens_for_user(self.instance)
         update_last_login(None, self.instance)
         data = {"user_id": self.instance.id, **tokens}

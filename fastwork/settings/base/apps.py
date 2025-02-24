@@ -7,6 +7,7 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 EXTERNAL_APPS = [
+    "anymail",
     "django_extensions",
     "django_filters",
     "rest_framework",

@@ -5,7 +5,11 @@ from .base import BASE_DIR
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates").replace("\\", "/")],
+        "DIRS": [
+            os.path.join(os.path.dirname(BASE_DIR), "templates").replace(
+                "\\", "/"
+            )
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -14,6 +18,9 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
             ],
+            "libraries": {
+                "extra_tags": "libs.template_tags",
+            },
         },
     },
 ]

@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      -ms-text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+      background-color: #ededed;
+    }
+
+    table {
+      border-spacing: 0;
+    }
+
+    img {
+      border: 0;
+      display: block;
+    }
+  </style>
+</head>
+
+<body style="margin: 0; padding: 0; background-color: #ededed;">
+  <center>
+    <table width="100%" bgcolor="#ededed" cellpadding="0" cellspacing="0" border="0" style="margin: 0; padding: 30px 0;">
+      <tr>
+        <td align="center" valign="top">
+          <table width="640" cellpadding="0" cellspacing="0" border="0" style="max-width: 100%; background-color: #ffffff; border-radius: 6px; padding: 24px;">
+            <tr>
+              <td align="center">
+                <img src="{{ settings.STATIC_DOMAIN_FOR_EMAIL }}{% static 'img/check-mail.png' %}" alt="Company Logo" style="width: 56px; height: auto;">
+              </td>
+            </tr>
+            {%  block main_content %} {% endblock %}
+            {% block signature %}
+              {% include "./signature.html" %}
+            {% endblock %}
+          </table>
+        </td>
+      </tr>
+    </table>
+  </center>
+</body>
+</html>

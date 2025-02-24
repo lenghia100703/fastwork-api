@@ -37,3 +37,4 @@ WSGI_APPLICATION = "wsgi.application"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "hr.User"
+FRONTEND_URL = config_parser.get("system", "FRONTEND_URL", fallback="")

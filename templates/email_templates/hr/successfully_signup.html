@@ -1,0 +1,39 @@
+{% extends "../base_email.html" %}
+
+{% block main_content %}
+  {% if user.email_verified %}
+    <tr>
+      <td align="center" style="padding: 16px 0; font-family: 'Figtree', sans-serif; font-size: 16px; color: #212326;">
+        <h1>
+          Registration successful
+        </h1>
+        <p>Hi, {{ user_name }}</p>
+        <p>We’re excited to have you with us.</p>
+        <p>You’ve successfully registered an account with Fastwork.</p>
+        <p>Start exploring and make the most of your account today.</p>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" style="padding: 16px 0;">
+        <a href="{{ settings.FRONTEND_URL }}" style="display: inline-block; padding: 6px 24px; color: #fafafa; background-color: #2399f9; border-radius: 22px; font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 16px; text-decoration: none;">
+          Homepage
+        </a>
+      </td>
+    </tr>
+  {% else %}
+    <tr>
+      <td align="center" style="padding: 16px 0;">
+        <h1 style="color: #212326; font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 24px; margin: 0;">
+          Click here to confirm your registration
+        </h1>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" style="padding: 16px 0;">
+        <a href="{{ url }}" style="display: inline-block; padding: 6px 24px; color: #fafafa; background-color: #2399f9; border-radius: 22px; font-family: 'Figtree', sans-serif; font-weight: 700; font-size: 16px; text-decoration: none;">
+          Register now and let’s get started
+        </a>
+      </td>
+    </tr>
+  {% endif %}
+{% endblock %}
