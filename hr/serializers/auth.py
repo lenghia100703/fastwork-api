@@ -7,7 +7,8 @@ from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode as uid_decoder
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import ValidationError, AuthenticationFailed
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from libs.validators import PasswordValidator, PhoneNumberValidator
@@ -23,6 +24,18 @@ class SignUpMixin:
             "refresh": str(refresh),
             "access": str(refresh.access_token),
         }
+
+
+class LoginSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        if not self.user.email_verified:
+            raise AuthenticationFailed(
+                "Email của bạn chưa được xác thực",
+                code="email_not_verified"
+            )
+
+        return data
 
 
 class SignUpSerializer(SignUpMixin, serializers.Serializer):
@@ -81,7 +94,8 @@ class SignUpSerializer(SignUpMixin, serializers.Serializer):
         self.instance = super().save(**kwargs)
         send_successful_signup_email.delay(self.instance.id)
         tokens = self.get_tokens_for_user(self.instance)
-        update_last_login(None, self.instance)
+        self.instance.last_login = None
+        self.instance.save(update_fields=["last_login"])
         data = {"user_id": self.instance.id, **tokens}
         return data
 
@@ -113,5 +127,6 @@ class SignUpConfirmSerializer(SignUpMixin, serializers.Serializer):
         self.user.email_verified = True
         self.user.save(update_fields=["email_verified"])
         tokens = self.get_tokens_for_user(self.user)
-        update_last_login(None, self.user)
+        self.user.last_login = None
+        self.user.save(update_fields=["last_login"])
         return tokens

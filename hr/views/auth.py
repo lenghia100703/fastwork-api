@@ -9,11 +9,16 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-from ..serializers import SignUpConfirmSerializer, SignUpSerializer
+from ..serializers import (
+    SignUpConfirmSerializer,
+    SignUpSerializer,
+    LoginSerializer,
+)
 
 
 class LoginAPIView(TokenObtainPairView):
     http_method_names = ["post"]
+    serializer_class = LoginSerializer
 
 
 class LogoutAPIView(TokenBlacklistView):
