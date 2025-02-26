@@ -12,7 +12,9 @@ class ProjectViewSet(ModelViewSet):
     serializer_class = ProjectSerializer
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend]
-    filter_class = ProjectFilter
+    filterset_class = ProjectFilter
+    lookup_field = "id"
+    ordering = ["customer_name"]
 
     def perform_create(self, serializer):
         if not serializer.validated_data.get("contractor"):
