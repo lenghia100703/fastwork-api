@@ -11,7 +11,7 @@ class ProjectFilter(django_filters.FilterSet):
     status = django_filters.ChoiceFilter(field_name="status", choices=ProjectStatus.choices)
     start_date = django_filters.DateFilter(field_name="start_date", lookup_expr="gte")
     contractor = django_filters.NumberFilter(field_name="contractor__id")
-    has_debt = django_filters.CharFilter(method="filter_has_debt")
+    has_debt = django_filters.BooleanFilter(method="filter_has_debt")
 
     o = OrderingFilter(
         fields=(
@@ -31,10 +31,7 @@ class ProjectFilter(django_filters.FilterSet):
             "has_debt",
         ]
 
-    @staticmethod
     def filter_has_debt(self, queryset, name, value):
-        breakpoint()
-        has_debt = value == "true"
-        if has_debt:
+        if value:
             return queryset.filter(debt_amount__gt=0)
         return queryset.filter(debt_amount=0)
