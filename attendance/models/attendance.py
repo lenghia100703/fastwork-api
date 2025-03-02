@@ -1,6 +1,6 @@
 from django.db import models
 
-from constants import AttendanceStatus
+from constants import AttendanceStatus, UserRole
 from constants.shift import Shift
 from libs.models import BaseModel
 
@@ -25,3 +25,12 @@ class Attendance(BaseModel):
         max_length=50,
         choices=Shift.choices,
     )
+
+    def __str__(self):
+        return f"{self.worker} - {self.project}"
+
+    def save(self, *args, **kwargs):
+        user = kwargs.pop("user", None)
+        if user and user.role == UserRole.CONTRACTOR:
+            self.status = AttendanceStatus.CONFIRMED
+        super().save(*args, **kwargs)

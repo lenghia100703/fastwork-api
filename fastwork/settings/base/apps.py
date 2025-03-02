@@ -22,5 +22,6 @@ EXTERNAL_APPS = [
 INTERNAL_APPS = [
     "hr.apps.HrConfig",
     "project.apps.ProjectConfig",
+    "attendance.apps.AttendanceConfig",
 ]
 INSTALLED_APPS = DJANGO_APPS + EXTERNAL_APPS + INTERNAL_APPS
